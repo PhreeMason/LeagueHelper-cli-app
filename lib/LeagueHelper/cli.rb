@@ -1,49 +1,42 @@
 
 
 class LeagueHelper::CLI
-  attr_accessor :summoner
+  attr_accessor :summoner, :input
   def call
     puts "Welcome to League Helper"
-    puts "Please enter your summoner name"
-    input = gets.chomp
-    @summoner = Summoner.new(input)
-    LolScraper.scrape_summoner_page(@summoner)
-    LolScraper.summ_champ_stats(@summoner)
-    @summoner.stats
-    puts ""
-    if @summoner.rank != "Unranked"
-      options
-    else
-      puts "Goodbye"
-    end
+    new_summoner
   end
 
-  def options(input = '')
-    while input != 'exit'
-      puts "Enter the number for the area of game play you would like to improve"
-      puts  "1.Rank Solo Q       3.Most played"
+  def options
+    while @input != 'exit'
+      puts ""
+      puts "Please enter the number for the area of game play you would like to improve"
+      puts "Or enter 'exit' to quit"
+      puts  "1.Rank Solo Q       3.Most played Champs"
       puts  "2.Champion Build    4.New summoner lookup"
       puts ""
-      input = gets.chomp.downcase
-      action(input)
+      @input = gets.chomp.downcase
+      action
     end
-    puts "Goodbye"
   end
 
-  def action(input)
-      case input
+  def action
+      case @input
       when '1'
         soloQ
-        puts "Enter the number of what you would like to do next"
-        puts "Enter 'exit' to quit"
         puts ""
       when '2'
         champ_mastery
         puts ""
       when '3'
-        puts "checkout these streamers"
+        puts "Here are your most played champs"
+        puts ""
+        @summoner.my_champs
+      when '4'
+        new_summoner
       when 'exit'
         puts "Thank You"
+        puts "Goodbye"
       else
         puts "I dont understand that choice"
       end
@@ -55,24 +48,40 @@ class LeagueHelper::CLI
     puts "#{c[0].name} #{c[0].my_winpercent}"
     puts "#{c[1].name} #{c[1].my_winpercent}"
     puts "I suggest focusing on these two to climb in Rank"
-    puts ""
   end
 
   def champ_mastery
+    puts "Which champions would you like a build for?"
     summoner.champ_builds
     summoner.champions.each {|champ| puts champ.name}
-    puts "Which champions would you like a build for?"
     puts ""
-    input= gets.chomp
-    champ = summoner.champ_find(input)
+    @input= gets.chomp
+    champ = summoner.champ_find(@input)
     if champ
       puts "Here are the most popular items"
       puts ""
       champ.build.each_with_index {|item, idx| puts "#{idx+1}. #{item}"}
     else
       puts "That champion is not in your champ pool"
-      puts ""
     end
   end
+
+  def new_summoner
+    puts "Please enter your summoner name"
+    @input = gets.chomp
+    @summoner = Summoner.new(@input)
+    LolScraper.scrape_summoner_page(@summoner)
+    LolScraper.summ_champ_stats(@summoner)
+    puts ""
+    if @summoner.champions.count != 0
+      @summoner.stats
+      options
+    else
+      puts "Please try again when you are ranked"
+      puts "Goodbye"
+    end
+  end
+
+
 
 end

@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 require './lib/LeagueHelper'
 LeagueHelper::CLI.new.call
+
+

@@ -17,11 +17,7 @@ class Summoner
 
   def stats
     puts "Summoner: #{@name}"
-    if @rank == "Unranked"
-      puts "Please try again when you are ranked"
-    else
-       puts "Rank: #{@rank} with #{@lp}"
-    end
+    puts "Rank: #{@rank} with #{@lp}"
   end
 
   def my_champs
