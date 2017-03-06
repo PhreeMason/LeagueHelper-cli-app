@@ -43,11 +43,14 @@ class LeagueHelper::CLI
   end
 
   def soloQ
-    puts "Here is a list of your best champions with win percent for each"
+    puts "Here is a list of your best champions"
+    puts "with win percent and avareage cs for each"
     c=@summoner.best_champs
-    puts "#{c[0].name} #{c[0].my_winpercent}"
-    puts "#{c[1].name} #{c[1].my_winpercent}"
+    puts "#{c[0].name} CS:#{c[0].cs} #{c[0].my_winpercent}"
+    puts "#{c[1].name} CS:#{c[1].cs} #{c[1].my_winpercent}"
     puts "I suggest focusing on these two to climb in Rank"
+    puts "The easist way to improve win percent is to improve cs"
+    puts "Aim for about 90 cs for every 10 minutes of in game time."
   end
 
   def champ_mastery
