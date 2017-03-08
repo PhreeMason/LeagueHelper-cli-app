@@ -5,6 +5,7 @@ class Summoner
     @name = summoner_name
     @url_name = @name.split(" ").join("+")
     @champions = []
+    @@all << self
   end
 
   def self.all
@@ -36,6 +37,10 @@ class Summoner
 
   def champ_find(name)
     @champions.detect{|champ| champ.name.downcase == "#{name.downcase}"}
+  end
+
+  def self.find_create_by_name(name)
+    self.all.detect{|summoner| summoner.name == name} || self.new(name)
   end
 
 end

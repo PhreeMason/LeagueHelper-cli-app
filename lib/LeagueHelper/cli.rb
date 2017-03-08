@@ -2,6 +2,7 @@
 
 class LeagueHelper::CLI
   attr_accessor :summoner, :input
+
   def call
     puts "Welcome to League Helper"
     new_summoner
@@ -72,9 +73,7 @@ class LeagueHelper::CLI
   def new_summoner
     puts "Please enter your summoner name"
     @input = gets.chomp
-    @summoner = Summoner.new(@input)
-    LolScraper.scrape_summoner_page(@summoner)
-    LolScraper.summ_champ_stats(@summoner)
+    get_summoner
     puts ""
     if @summoner.champions.count != 0
       @summoner.stats
@@ -85,6 +84,10 @@ class LeagueHelper::CLI
     end
   end
 
-
+  def get_summoner
+    @summoner = Summoner.find_create_by_name(@input)
+    LolScraper.scrape_summoner_page(@summoner)
+    LolScraper.summ_champ_stats(@summoner)
+  end
 
 end
