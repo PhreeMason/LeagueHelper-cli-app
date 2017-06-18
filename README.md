@@ -1,6 +1,6 @@
 # LeagueHelper
 
-This gem is meant to provide League of Legends players with information on climbing the ranking ladder. The gem provides information on you most popular rank champions and rank stats for each in addion to popular item builds for each champ.
+This gem is meant to provide League of Legends players with information on climbing the ranking ladder. The gem provides information on your most popular rank champions and rank stats for each in addion to popular item builds for each champ.
 
 ## Installation
 
