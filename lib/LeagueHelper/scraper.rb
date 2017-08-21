@@ -44,17 +44,3 @@ end
 
 
 end
-# lookup = "http://www.probuilds.net/champions/details/"
-# name = 'Annie'
-# url = lookup+name
-# doc = Nokogiri::HTML(open(url))
-#  me = doc.css(".left.clear")
-#  me.css('.item-name.gold').each {|name| puts name.text}
-# binding.pry
-
-# def slow_print(word)
-#   word.each_char do |chr|
-#     sleep(0.1)
-#     print chr
-#   end
-# end
